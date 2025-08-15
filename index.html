@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ TaskFlow - Beautiful Todo List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <i class="fas fa-magic"></i>
+                    TaskFlow
+                </h1>
+                <p class="subtitle">Organize your life, one task at a time</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Add Task Section -->
+            <section class="add-task-section">
+                <div class="add-task-container">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="taskInput" 
+                            class="task-input" 
+                            placeholder="What needs to be done?"
+                            maxlength="100"
+                        >
+                        <button id="addTaskBtn" class="add-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="task-options">
+                        <select id="prioritySelect" class="priority-select">
+                            <option value="low">🟢 Low Priority</option>
+                            <option value="medium" selected>🟡 Medium Priority</option>
+                            <option value="high">🔴 High Priority</option>
+                        </select>
+                        <input type="date" id="dueDateInput" class="due-date-input">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task Filters -->
+            <section class="filters-section">
+                <div class="filters-container">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> All
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fas fa-clock"></i> Active
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check-circle"></i> Completed
+                    </button>
+                    <button class="filter-btn" data-filter="high">
+                        <i class="fas fa-exclamation-triangle"></i> High Priority
+                    </button>
+                </div>
+                <div class="stats">
+                    <span class="stat-item">
+                        <i class="fas fa-tasks"></i>
+                        <span id="totalTasks">0</span> total
+                    </span>
+                    <span class="stat-item">
+                        <i class="fas fa-check"></i>
+                        <span id="completedTasks">0</span> done
+                    </span>
+                </div>
+            </section>
+
+            <!-- Tasks List -->
+            <section class="tasks-section">
+                <div class="tasks-container" id="tasksContainer">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>No tasks yet!</h3>
+                <p>Add your first task above to get started</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 TaskFlow. Made with ❤️ for productivity.</p>
+        </footer>
+    </div>
+
+    <!-- Task Template (Hidden) -->
+    <template id="taskTemplate">
+        <div class="task-item" data-id="">
+            <div class="task-content">
+                <div class="task-checkbox">
+                    <input type="checkbox" class="task-checkbox-input">
+                    <span class="checkmark"></span>
+                </div>
+                <div class="task-details">
+                    <h3 class="task-title"></h3>
+                    <div class="task-meta">
+                        <span class="task-priority"></span>
+                        <span class="task-due-date"></span>
+                        <span class="task-created"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="task-btn edit-btn" title="Edit task">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="task-btn delete-btn" title="Delete task">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Edit Task Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="editTaskInput" class="edit-task-input" placeholder="Task description">
+                <div class="edit-options">
+                    <select id="editPrioritySelect" class="edit-priority-select">
+                        <option value="low">🟢 Low Priority</option>
+                        <option value="medium">🟡 Medium Priority</option>
+                        <option value="high">🔴 High Priority</option>
+                    </select>
+                    <input type="date" id="editDueDateInput" class="edit-due-date-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                <button class="btn btn-primary" id="saveEdit">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast" id="successToast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
